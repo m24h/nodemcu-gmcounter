@@ -38,8 +38,8 @@ local function start (self)
             local a = (t+5)/10  --- avoid overflow, 6,000,000,000 > 2^31
             local b = tool.muldiv(pls, 600000000, a/2, a)
 
-            -- cpm quality
-            a = pls * (t/1000000 + 1) + b*2/(self.cpm+1) + self.cpm*2/(b+1)
+            -- cpm quality, empirical formula
+            a = pls + t/200000 + b*5/(self.cpm+1) + self.cpm*5/(b+1)
             --- limit to range: 10% - 30%
             a = a<10 and 10 or a>50 and 50 or a 
             self.cpm = tool.muldiv(b, a, 50, 100) + tool.muldiv(self.cpm, 100-a, 50, 100)
